@@ -29,9 +29,17 @@ public class Pawn extends Piece {
     public void move(Chessboard board, Spot start, Spot end) {
         if (canMove(board, start, end)) {
             // Move the piece to the destination
-            end.setpiece(this);
             start.setpiece(null);
             hasMoved = true;
+            int endY = end.gety();
+            end.setpiece(this)
+            //check for promotion (promote to a Queen)
+            if (isWhite() && endY == 0) {
+                end.setpiece(new Queen(true));
+            }
+            else if (!isWhite() && endY == 7) {
+                end.setpiece(new Queen(false));
+            }
         }
     }
 
